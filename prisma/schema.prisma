@@ -9,3 +9,35 @@ datasource db {
   provider = "mongodb"
   url      = env("MONGODB_URI")
 }
+
+model Mod {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  password String
+}
+
+model User {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  email           String   @unique
+  password        String
+  username        String   @unique
+  profilePhotoUrl String?
+  reviews         Review[]
+}
+
+model Review {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  modelYear       String
+  overview        String
+  worstExperience String?
+  advice          String?
+  expenses        String?
+  fuelEconomy     String?
+  rating          Int
+  otherDetails    String?
+  imagesLink      String?
+  upLikeCount     Int     @default(0)
+  user            User    @relation(fields: [userId], references: [id])
+  userId          String  @db.ObjectId
+}

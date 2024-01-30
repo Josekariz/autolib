@@ -1,7 +1,7 @@
 // daisyui-themes.js in the root folder
 const myTheme = {
   mytheme: {
-    primary: "#05BBF4",
+    primary: "#22d3ee",
     secondary: "#FEA23D",
     accent: "#B7C1C6",
     neutral: "#1c1917",

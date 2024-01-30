@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import Logo from "../assets/logo.png"
-import Prof from "../assets/profileholder.png"
+import Logo from "../assets/logo.png";
+import Prof from "../assets/profileholder.png";
 
 export default function Navbar({ userProfile }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function Navbar({ userProfile }) {
             <div className="hidden md:flex items-center space-x-1">
               {["/", "/reviews", "/about", "/contact_us"].map((path, index) => (
                 <Link key={index} href={path} passHref>
-                  <span className="py-5 px-3 text-base-100 hover:text-lg hover:text-primary cursor-pointer">
+                  <span className="py-5 px-3 text-base-100 navbar-link">
                     {['Home', 'Reviews', 'About Us', 'Contact Us'][index]}
                   </span>
                 </Link>
@@ -80,13 +80,27 @@ export default function Navbar({ userProfile }) {
           <div className={`${isOpen ? 'flex' : 'hidden'} md:hidden flex-col items-center`} ref={dropdownRef}>
             {["/", "/reviews", "/about", "/contact_us"].map((path, index) => (
               <Link key={index} href={path} passHref>
-                <span className="block py-2 px-4 text-sm text-base-100 hover:text-lg hover:text-primary cursor-pointer">
+                <span className="block py-2 px-4 text-sm text-base-100 navbar-link">
                   {['Home', 'Reviews', 'About Us', 'Contact Us'][index]}
                 </span>
               </Link>
             ))}
           </div>
         </div>
+
+        <style jsx>{`
+          .navbar-link {
+            color: #007bff; /* Your primary color */
+            font-weight: 500; /* Slightly bolder font */
+            transition: font-size 0.3s, text-decoration-color 0.3s;
+          }
+
+          .navbar-link:hover {
+            text-decoration: underline;
+            text-decoration-color: #007bff; /* Your primary color */
+          }
+        `}</style>
       </nav>
     );
 }
+

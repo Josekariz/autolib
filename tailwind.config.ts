@@ -13,8 +13,8 @@ const config: Config = {
         themes: [
           {
             mytheme: { // Give a name to your custom theme
-              primary: "FEA23D",
-              earth: "#FEA23D",
+              primary: "#22d3ee",
+              secondary: "#FEA23D",
               accent: "#B7C1C6",
               neutral: "#1c1917",
               "base-100": "#ffffff",

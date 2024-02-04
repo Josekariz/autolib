@@ -1,52 +1,58 @@
-// prisma/seed.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create a mod user
-  await prisma.mod.create({
-    data: {
-      email: 'mod@example.com',
-      password: 'securepassword123', // Hash this password in a real application
-    },
-  });
+    // Clear existing data
+    await prisma.review.deleteMany({});
+    await prisma.user.deleteMany({});
+    await prisma.mod.deleteMany({});
 
-  // Create some users
-  const user1 = await prisma.user.create({
-    data: {
-      email: 'user1@example.com',
-      password: 'password1',
-      username: 'user1',
-    },
-  });
+    // Create a moderator
+    await prisma.mod.create({
+        data: {
+            email: 'moderator@example.com',
+            password: 'modpassword',
+        },
+    });
 
-  // ... Create more users similarly
+    // Create 3 users and 5 reviews for each
+    for (let i = 1; i <= 3; i++) {
+        const user = await prisma.user.create({
+            data: {
+                email: `user${i}@example.com`,
+                password: `userpass${i}`,
+                username: `user${i}`,
+                profilePhotoUrl: `http://example.com/user${i}/photo.jpg`,
+                role: 'user',
+            },
+        });
 
-  // Create some reviews
-  await prisma.review.create({
-    data: {
-      name: 'Car Model 1',
-      modelYear: '2020',
-      overview: 'Great performance and mileage',
-      worstExperience: 'Difficulties with navigation system',
-      advice: 'Regular maintenance is key',
-      expenses: 'Approx $1000 yearly on maintenance',
-      fuelEconomy: '30 MPG',
-      rating: 4,
-      otherDetails: 'Excellent safety features',
-      imagesLink: 'http://example.com/car1.jpg',
-      userId: user1.id, // Associate with a user
-    },
-  });
-
-  // ... Create more reviews similarly
+        for (let j = 1; j <= 5; j++) {
+            await prisma.review.create({
+                data: {
+                    name: `User ${i} Review ${j}`,
+                    modelYear: `202${Math.floor(Math.random() * 10)}`,
+                    overview: `This is an overview for User ${i} Review ${j}.`,
+                    worstExperience: `Worst experience for User ${i} Review ${j}.`,
+                    advice: `Advice for User ${i} Review ${j}.`,
+                    expenses: `Expenses for User ${i} Review ${j}.`,
+                    fuelEconomy: `Fuel economy for User ${i} Review ${j}.`,
+                    otherDetails: `Other details for User ${i} Review ${j}.`,
+                    imagesLink: `http://example.com/user${i}/review${j}/images.jpg`,
+                    upLikeCount: Math.floor(Math.random() * 100),
+                    downLikeCount: Math.floor(Math.random() * 100),
+                    userId: user.id,
+                },
+            });
+        }
+    }
 }
 
 main()
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+    .catch(e => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });

@@ -50,6 +50,8 @@ export default function Page() {
           <input type="text" name="fuelEconomy" placeholder="Fuel Economy" className="w-full p-2 border rounded bg-gray-50 text-black" />
           <input type="text" name="otherDetails" placeholder="Other Details" className="w-full p-2 border rounded bg-gray-50 text-black" />
           <input type="text" name="imagesLink" placeholder="Images Link" className="w-full p-2 border rounded bg-gray-50 text-black" />
+          {/* Some random user id */}
+          <input type="text" name="userId" placeholder="userId" className="w-full p-2 border rounded bg-gray-50 text-black" />
           <button type="submit" disabled={isLoading} className="w-full bg-warning text-white p-3 rounded hover:bg-primary">
             {isLoading ? 'Loading...' : 'Submit'}
           </button>
